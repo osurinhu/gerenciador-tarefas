@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+
+{% block title %}: Add Task
+{% endblock %}
+
+{% block main %}
+<h1 class="m-3 text-center">
+    New Task
+</h1>
+<form action="/addtask" method="post">
+    <div class="m-3">
+        <input autocomplete="off" autofocus class="form-control mx-auto w-auto" name="title" placeholder="Title" type="text" required>
+    </div>
+    <div class="mb-3">
+        <textarea class="form-control" placeholder="Task description" rows="3" name="description" style="max-width:50%;display:block;margin-left:auto;margin-right:auto;" required></textarea>
+    </div>
+
+    <div class="mb-3 text-center">
+        <input type="date" name="date" required/>
+    </div>
+
+    <div class="mb-3 text-center">
+        <input type="time" name="time" required/>
+    </div>
+
+    <div class="m-3 text-center">
+        <button class="btn btn-primary" type="submit">Add task</button>
+    </div>
+</form>
+
+{% endblock %}

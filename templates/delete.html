@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+
+{% block title %}: Delete
+{% endblock %}
+
+{% block main %}
+
+
+
+    <div class="text-center">
+        {% if tcount > 0: %}
+            <div style="margin-top: 40px; margin-left: 300px; margin-right: 300px;" class="border p-2">
+                <ul class="list-group list-group-flush">
+                    {% for task in tasks %}
+                        <li class="list-group-item text-start">
+                            <strong>{{ task["title"] }}</strong>&nbsp {{ task["date"] }} - {{ task["time"] }}
+                            <form action="/delete" method="post" style="display: inline">
+                                <button style="display: inline" class="form-control mx-auto w-auto" type="submit" name="deleted_task" value="{{ task["id"] }}"> Delete</button>
+                            </form>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% else %}
+            <div style="margin-top: 200px" class="text-center" >
+                You don't have any tasks
+                <a href="/addtask">
+                    <input type="button" class="btn btn-primary" value="Create a task" />
+            </div>
+
+        {% endif %}
+    </div>
+
+{% endblock %}

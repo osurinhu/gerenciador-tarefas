@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+
+{% block title %}: Apology
+{% endblock %}
+
+{% block main %}
+
+<div class="h-100 d-flex align-items-center justify-content-center">
+        <img src="https://media.istockphoto.com/id/463804205/photo/mature-latin-man-confused.jpg?s=612x612&w=0&k=20&c=YvZdWUWwZaKOksVCrrzuZoOZ8FKN4vWJLOX4Ikgo1dE=" alt="confused guy">
+</div>
+
+<h1 class="h-100 d-flex align-items-center justify-content-center fs-1 text-center text-wrap">
+    {{ error }}
+</h1>
+
+<h2 class="h-100 d-flex align-items-center justify-content-center fs-1 text-center text-wrap">
+    {{ message }}
+</h2>
+
+{% endblock %}

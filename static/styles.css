@@ -1,0 +1,38 @@
+/* Center Left padded radio buttons*/
+.center-left-pad {
+  text-align: left;
+  margin: auto;
+  width: 700px;
+}
+
+
+/* Collapse text */
+
+.accordion-preview .collapse:not(.show) {
+  display: block;
+}
+.accordion-preview .collapse:not(.show) .accordion-body {
+  max-height: 90px;
+  position: relative;
+  overflow: hidden;
+}
+
+.accordion-preview .collapse:not(.show) .accordion-body:after {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  content: "";
+  background: linear-gradient(to top,
+     rgba(255,255,255, 1) 5%,
+     rgba(255,255,255, 0) 60%
+  );
+  pointer-events: none; /* so the text is still selectable */
+}
+
+
+::-webkit-scrollbar {
+  width: 0; /* Hide scrollbar width */
+  height: 0; /* Hide scrollbar height */
+}

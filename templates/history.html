@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+
+{% block title %}: History
+{% endblock %}
+
+{% block main %}
+
+
+<div class="accordion accordion-preview text-center" style="margin-left:300px; margin-right: 300px;">
+    <h2 class="text-center border p-2"">History</h2>
+{% if tcount >= 1: %}
+{% for i in range(tcount) %}
+    <div class="accordion-item">
+        <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ i }}" aria-expanded="False" aria-controls="collapseTwo">
+                <strong>{{ tasks[i]["title"] }} </strong>&nbsp- {{ tasks[i]["date"] }} -&nbsp<strong> {{ tasks[i]["time"] }}</strong>
+            </button>
+        </h2>
+    <div id="collapse{{ i }}" class="accordion-collapse collapse" aria-labelledby="collapse{{ i }}" data-bs-parent="#accordionExample">
+        <div class="accordion-body text-start">
+            {{ tasks[i]["description"] }}
+        </div>
+    </div>
+        {% endfor %}
+
+{% else %}
+    <div style="padding-top: 30vh" class="text-center">
+        <a href="/addtask">
+        <input type="button" class="btn btn-primary" value="Create a task" />
+    </div>
+{% endif %}
+</div>
+
+
+{% endblock %}

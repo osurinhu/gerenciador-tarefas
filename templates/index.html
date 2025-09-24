@@ -1,0 +1,122 @@
+{% extends "layout.html" %}
+
+{% block title %}
+{% endblock %}
+
+{% block main %}
+
+{% if tcount >= 1: %}
+        <!-- Modal -->
+        <div class="modal fade" id="alert" tabindex="-1" aria-labelledby="alertlLabel" aria-hidden="true">
+            <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h1 class="modal-title fs-5" id="alertLabel">{{ tasks[0]["title"] }} {{ tasks[0]["date"] }} {{ tasks[0]["time"] }}</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                {{ tasks[0]["description"] }}
+                </div>
+                <div class="modal-footer">
+                    <form action="/disable" method="post">
+                        <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal" name="disabled_task" value="{{ tasks[0]["id"] }}" >End Task</button>
+                    </form>
+                </div>
+            </div>
+            </div>
+        </div>
+{% endif %}
+
+
+
+
+
+    <div class="modal-body row">
+        <div style="overflow-y:scroll; height: 90vh" class="col-md-6">
+            <h2 class="text-center border p-2"">Next Task</h2>
+                <div style=" min-height: 89%" class="border p-2">
+                    {% if tcount >= 1: %}
+
+                    <script>
+
+
+                        const now = new Date();
+                        const month = now.getMonth();
+                        const day = now.getDate();
+                        const year = now.getFullYear();
+
+                        const hours = now.getHours();
+                        const minutes = now.getMinutes();
+                        const seconds = now.getSeconds();
+
+                        const date = new Date(year,month,day,hours,minutes,seconds);
+
+                        taskdate = new Date('{{ tasks[0]["jsdate"] }} {{ tasks[0]["time"] }}');
+                        const diff = taskdate - date;
+                        let alert = new bootstrap.Modal(document.getElementById('alert'), {});
+                        alert.hide()
+
+                        var audio = new Audio('/static/alarmsound.mp3');
+
+                        if (diff <= 0) {
+                            alert.show();
+                        }
+
+                        else {
+                            setTimeout(() => {
+                                alert.show(); audio.play();
+                            },  diff.toString());
+                        }
+
+                    </script>
+
+
+
+                        <div style="padding-left: 20px;">
+                            <h3>{{ tasks[0]["title"] }}</h3>
+                            <h4 style="padding-left: 20px;" class="lead">{{ tasks[0]["date"] }}</h4>
+                            <h3 style="padding-left: 20px;" class="lead">{{ tasks[0]["time"] }}</h3>
+                            <div style="margin-top: 50px;" class="border p-2">
+                                <p class="fs-5">{{ tasks[0]["description"] }}</p>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div style="padding-top: 30vh" class="text-center">
+                            <a href="/addtask">
+                                <input type="button" class="btn btn-primary" value="Create a task" />
+                            </a>
+                        </div>
+                    {% endif %}
+        </div>
+    </div>
+
+
+
+    <div style="overflow-y:scroll; height: 88vh" class="col-md-6">
+
+        <div class="accordion accordion-preview">
+            <h2 class="text-center border p-2"">All Tasks</h2>
+            {% if tcount >= 2: %}
+                {% for i in range(1, tcount) %}
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ i }}" aria-expanded="False" aria-controls="collapseTwo">
+                                <strong>{{ tasks[i]["title"] }} </strong>&nbsp- {{ tasks[i]["date"] }} -&nbsp<strong> {{ tasks[i]["time"] }}</strong>
+                            </button>
+                        </h2>
+                    <div id="collapse{{ i }}" class="accordion-collapse collapse" aria-labelledby="collapse{{ i }}" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            {{ tasks[i]["description"] }}
+                        </div>
+                    </div>
+                        {% endfor %}
+
+            {% elif tcount == 1%}
+                <div style="padding-top: 30vh" class="text-center">
+                    <a href="/addtask">
+                    <input type="button" class="btn btn-primary" value="Create a task" />
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
